@@ -1,0 +1,23 @@
+{
+    "name": "cmzz/laravel-aliyun-sms",
+    "description": "阿里云短信服务 for Laravel",
+    "keywords": ["aliyun", "aliyun-sms", "laravel", "sms", "sdk"],
+    "require": {
+        "php": ">5.3",
+        "cmzz/aliyun-sms": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Cmzz\\LaravelAliyunSms\\": "src/"
+        }
+    },
+
+    "license": "MIT",
+    "minimum-stability" : "dev",
+    "authors": [
+        {
+            "name": "Andy",
+            "email": "iwuzhuo@gmail.com"
+        }
+    ]
+}
