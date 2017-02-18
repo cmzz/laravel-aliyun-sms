@@ -10,13 +10,9 @@ use Cmzz\AliyunCore\Exception\ServerException;
 
 class AliyunSms {
 
-    static public function send($mobile, $tplId, $params)
+    public function send($mobile, $tplId, $params)
     {
-
-        define('ENABLE_HTTP_PROXY', FALSE);
-        define('HTTP_PROXY_IP', '127.0.0.1');
-        define('HTTP_PROXY_PORT', '8888');
-
+        dd(config());
 
         $iClientProfile = DefaultProfile::getProfile(config('aliyunsms.region_id'), config('aliyunsms.access_key'), config('aliyunsms.access_secret'));
         $client = new DefaultAcsClient($iClientProfile);

@@ -8,42 +8,36 @@
 
 namespace Cmzz\LaravelAliyunSms;
 
-use Cmzz\LaravelAliyunSms\SmsSender;
+use Illuminate\Foundation\Application as LaravelApplication;
 use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
+
 
 class ServiceProvider extends LaravelServiceProvider
 {
+    protected $defer = true;
 
     public function boot()
     {
-        $this->setupConfig();
+
+        $this->publishes([
+            realpath(__DIR__.'/config.php') => config_path('aliyunsms.php'),
+        ]);
+
     }
 
     public function register()
     {
-        //
+
+        $this->mergeConfigFrom(realpath(__DIR__.'/config.php'), 'aliyunsms');
+
+        $this->app->bind(AliyunSms::class, function() {
+            return new AliyunSms();
+        });
     }
 
-    /**
-     * Setup the config.
-     *
-     * @return void
-     */
-    protected function setupConfig()
+    protected function configPath()
     {
-        $source = realpath(__DIR__.'/config.php');
-
-        if ($this->app instanceof LaravelApplication) {
-            if ($this->app->runningInConsole()) {
-                $this->publishes([
-                    $source => config_path('aliyunsms.php'),
-                ]);
-            }
-
-        } elseif ($this->app instanceof LumenApplication) {
-            $this->app->configure('aliyunsms');
-        }
-
-        $this->mergeConfigFrom($source, 'aliyunsms');
+        return __DIR__ . '/config.php';
     }
+
 }
