@@ -14,21 +14,20 @@ use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
 
 class ServiceProvider extends LaravelServiceProvider
 {
-    protected $defer = true;
 
     public function boot()
     {
 
         $this->publishes([
-            realpath(__DIR__.'/config.php') => config_path('aliyunsms.php'),
-        ]);
+            __DIR__.'/config.php' => config_path('aliyunsms.php'),
+        ], 'config');
 
     }
 
     public function register()
     {
 
-        $this->mergeConfigFrom(realpath(__DIR__.'/config.php'), 'aliyunsms');
+        $this->mergeConfigFrom(__DIR__.'/config.php', 'aliyunsms');
 
         $this->app->bind(AliyunSms::class, function() {
             return new AliyunSms();
