@@ -38,10 +38,12 @@ class AliyunSms {
             logger()->error('客户端错误');
             logger()->error($e->getErrorCode());
             logger()->error($e->getErrorMessage());
+            throw new ClientException($e);
         } catch (ServerException  $e) {
             logger()->error('服务端错误');
             logger()->error($e->getErrorCode());
             logger()->error($e->getErrorMessage());
+
         }
 
         return false;
