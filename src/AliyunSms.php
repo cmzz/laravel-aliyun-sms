@@ -33,14 +33,18 @@ class AliyunSms {
 
         try {
             $response = $client->getAcsResponse($request);
-            print_r($response);
+            return $response;
         } catch (ClientException  $e) {
-            print_r($e->getErrorCode());
-            print_r($e->getErrorMessage());
+            logger()->error('客户端错误');
+            logger()->error($e->getErrorCode());
+            logger()->error($e->getErrorMessage());
         } catch (ServerException  $e) {
-            print_r($e->getErrorCode());
-            print_r($e->getErrorMessage());
+            logger()->error('服务端错误');
+            logger()->error($e->getErrorCode());
+            logger()->error($e->getErrorMessage());
         }
+
+        return false;
     }
 
 }
